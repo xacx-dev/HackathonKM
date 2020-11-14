@@ -11,3 +11,6 @@ class Register(StatesGroup):
     Email = State()
     Vk = State()
     About_me = State()
+
+class Answer(StatesGroup):
+    WriteAns = State()

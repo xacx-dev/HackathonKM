@@ -14,9 +14,18 @@ async def profile_info(message: types.Message):
 
 
 
+@dp.callback_query_handler(lambda c: str(c.data).split("_")[0].__eq__("gonext"))
+async def goback(callback_query: types.CallbackQuery):
+    id = str(callback_query.data).split("_")[1]
+    tgid = callback_query.from_user.id
+    users =get_users()
+    data = get_info_user(users[int(id)]['telegram_id'])
+    await bot.edit_message_text(chat_id=callback_query.from_user.id,message_id=callback_query.message.message_id,
+                           text=base_users_text + "\n" + data,
+                           reply_markup=bnts_users(users, id,tgid))
+    await bot.answer_callback_query(callback_query.id)
 
-
-@dp.callback_query_handler(lambda c: str(c.data).split("_")[0].__eq__("goback").__eq__("gonext"))
+@dp.callback_query_handler(lambda c: str(c.data).split("_")[0].__eq__("goback"))
 async def goback(callback_query: types.CallbackQuery):
     id = str(callback_query.data).split("_")[1]
     tgid = callback_query.from_user.id

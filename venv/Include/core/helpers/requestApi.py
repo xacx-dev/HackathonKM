@@ -30,7 +30,7 @@ def get_tasks():
     data = requests.get(req_url + "/task/").json()
     return data
 def get_task(id):
-    data = requests.get(req_url + "/task/"+str(id)).json()
+    data = requests.get(req_url + "/task/get/"+str(id)).json()
     return data
 def init_tasks():
     data = requests.get(req_url + "/task/google_init_tasks/").json()
@@ -43,12 +43,23 @@ def get_question(tgid):
     data = requests.get(req_url + "/question/question/"+str(tgid)).json()
     return data
 def complete_question(id,answer):
-    data = requests.get(req_url + "/question/complete?question_id="+str(id)+"&answer="+str(answer)).json()
+    data = requests.post(req_url + "/question/complete?question_id="+str(id)+"&answer="+str(answer)).json()
     return data
 def get_init_settings():
     data = requests.get(req_url + "/question/get_current_settings/").json()
     return data
 def get_init_question():
-    data = requests.get(req_url + "/question/get_current_settings/").json()
+    data = requests.get(req_url + "/question/google_init_questions/").json()
     return data
+#---------------------------------------------#
+
+
+#------------------Status---------------------#
+def get_statuses():
+    data = requests.get(req_url + "/status/").json()
+    return data
+def edit_status(id,newstatus):
+    data = requests.post(req_url + "/status/"+str(id),data=json.dumps({"status": newstatus})).json()
+    return data
+
 #---------------------------------------------#
