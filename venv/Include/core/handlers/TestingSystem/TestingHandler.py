@@ -10,6 +10,8 @@ from Include.core.states import Answer
 async def answer(callback_query: types.CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         data['test'] = callback_query.data
+        bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,message_id=callback_query.message.message_id,
+                                      reply_markup=None)
         await bot.send_message(callback_query.from_user.id,"Введите ответ")
         await Answer.WriteAns.set()
 
